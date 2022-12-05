@@ -1,1 +1,1 @@
-# osmium-tron-ethers
+# @osmium/tron-abi

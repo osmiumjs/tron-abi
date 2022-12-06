@@ -2,7 +2,7 @@
 	"name"           : "@osmium/tron-abi",
 	"description"    : "ABI-Coder/decoder from ethers 4.0.49 for correct Tron ABI decoding",
 	"license"        : "MIT",
-	"version"        : "0.1.0",
+	"version"        : "0.1.1",
 	"author"         : {
 		"name" : "Vasiliy Isaichkin",
 		"email": "vasiliy@isaichkin.ru"

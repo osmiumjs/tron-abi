@@ -98,7 +98,7 @@ export function decodeTronParams(types: string[], args: string[], input: string)
 	}, []);
 }
 
-export function decodeTronABI(data: Uint8Array, args: string[], abi: SmartContract_ABI_Entry[]) {
+export function decodeTronABI(data: Uint8Array, keys: string[], methodName: string, abi: SmartContract_ABI_Entry[]) {
 	const dataBuf = Buffer.from(data);
 	const bufMethod = dataBuf.subarray(0, 4);
 	const hexData = dataBuf.subarray(4).toString('hex');
@@ -126,8 +126,8 @@ export function decodeTronABI(data: Uint8Array, args: string[], abi: SmartContra
 
 		const hash = genMethodId(method, typesInput);
 
-		if (hash === methodId) {
-			const inputs = decodeTronParams(typesInput as any, args, hexData);
+		if (hash === methodId && method === methodName) {
+			const inputs = decodeTronParams(typesInput as any, keys, hexData);
 
 			return {
 				method,
@@ -140,8 +140,10 @@ export function decodeTronABI(data: Uint8Array, args: string[], abi: SmartContra
 		return acc;
 	}, {method: '', inputs: [], typesInput: [], namesInput: []});
 
+	if (!results.inputs.length) return null;
+
 	return iterateSync(results.inputs, (row, idx, iter) => {
-		iter.key(args[idx]);
+		iter.key(keys[idx]);
 
 		// @ts-ignore
 		switch (results.typesInput[idx]) {

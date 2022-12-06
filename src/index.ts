@@ -98,7 +98,7 @@ export function decodeTronParams(types: string[], args: string[], input: string)
 	}, []);
 }
 
-export function decodeTronABI(data: Uint8Array, keys: string[], methodName: string, abi: SmartContract_ABI_Entry[]) {
+export function decodeTronABI(data: Uint8Array, keys: string[], methodName: string, abi: SmartContract_ABI_Entry[]): { [key: string]: any } | null {
 	const dataBuf = Buffer.from(data);
 	const bufMethod = dataBuf.subarray(0, 4);
 	const hexData = dataBuf.subarray(4).toString('hex');
